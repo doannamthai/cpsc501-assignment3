@@ -1,52 +1,153 @@
-import objects.SimpleObject;
+import objects.*;
 
 import java.lang.reflect.Field;
-import java.text.MessageFormat;
+import java.util.Queue;
 import java.util.Scanner;
 
 public class ObjectCreator {
 
     public static void main(String[] args) throws Exception{
         ObjectCreator creator = new ObjectCreator();
-        creator.displayMainMenu();
+        creator.getObject(0);
     }
 
-    public void displayMainMenu() throws Exception{
+    public SupportObject getObject(int depth) throws Exception{
+        SupportObject supportObject = null;
         Scanner scanner = new Scanner(System.in);
         int input = 0;
-        do {
+        String indentation = Utils.getIndentation(depth);
+        System.out.format("%s Please select the below options\n", indentation);
+        System.out.format(" %s(1) Simple Object\n", indentation);
+        System.out.format(" %s(2) Object with references to other objects\n", indentation);
+        System.out.format(" %s(3) Object with array of primitives\n", indentation);
+        System.out.format(" %s(4) Object with array of references\n", indentation);
+        System.out.format(" %s(5) Object using collection interface\n", indentation);
+        System.out.format(" %sYour selection: ", indentation);
+        input = scanner.nextInt();
+        supportObject = selectOptions(input, depth);
 
-            System.out.println("Please select the below options");
-            System.out.println(" (1) Simple Object");
-            System.out.println(" (2) Object with references to other objects");
-            System.out.println(" (3) Object with array of primitives");
-            System.out.println(" (4) Object with array of references");
-            System.out.println(" (5) Object using collection interface");
-            System.out.println(" (6) Exit");
-
-            input = scanner.nextInt();
-
-            switch(input){
-                case 1: {
-                    optionsForSimpleObject();
-                }
-            }
-
-        } while (input != 6);
+        return supportObject;
     }
 
-    public void optionsForSimpleObject() throws Exception{
+    private SupportObject selectOptions(int input, int depth) throws  Exception{
+        switch(input){
+            case 1:
+                return optionsForSimpleObject(depth);
+            case 2:
+                return optionsForObjectWithReference(depth);
+            case 3:
+                return optionsForObjectWithPrimitiveArray(depth);
+            case 4:
+                return optionsForObjectWithObjectArray(depth);
+            case 5:
+                return optionsForObjectWithCollection(depth);
+        }
+        return null;
+    }
+
+    public SupportObject optionsForSimpleObject(int depth) throws Exception{
         Scanner scanner = new Scanner(System.in);
         SimpleObject simpleObject = new SimpleObject();
-        Class simpleObjectClass = Class.forName("SimpleObject");
-        System.out.println("You are selecting a simple object. Enter a number for each field OR \"N\" for nothing");
+        Class simpleObjectClass = Class.forName("objects.SimpleObject");
+        String indentation = Utils.getIndentation(depth);
+        System.out.format("%sYou are selecting a simple object. Enter a number OR \"N\" to ignore this field\n", indentation);
         for (Field field : simpleObjectClass.getDeclaredFields()){
-            System.out.println(MessageFormat.format("Value for {0}: ", field.getName()));
+            System.out.format("%sValue for %s: ", indentation, field.getName());
             String input = scanner.next();
             if (!input.equals("N")){
-                //field.set(simpleObject, NumberFormat.get);
+                field.set(simpleObject, Double.parseDouble(input));
             }
         }
+        return simpleObject;
+    }
+
+    public SupportObject optionsForObjectWithReference(int depth) throws Exception{
+        Scanner scanner = new Scanner(System.in);
+        ObjectWithReference objectWithReference = new ObjectWithReference();
+        Class objectClass = Class.forName("objects.ObjectWithReference");
+        String indentation = Utils.getIndentation(depth);
+        System.out.format("%sYou are selecting a object with references. " +
+                "Select a option from 1-5 to create the object OR \"N\" to ignore this field\n", indentation);
+        for (Field field : objectClass.getDeclaredFields()){
+            System.out.format("%sValue for %s: ", indentation, field.getName());
+            String input = scanner.next();
+            if (!input.equals("N")){
+                int inputVal = Integer.parseInt(input);
+                if (inputVal > 5 || inputVal < 1) throw new Exception("Invalid options");
+                field.set(objectWithReference, selectOptions(inputVal, depth+1));
+            }
+        }
+        return objectWithReference;
+    }
+
+    public SupportObject optionsForObjectWithPrimitiveArray(int depth) throws Exception{
+        Scanner scanner = new Scanner(System.in);
+        ObjectWithPrimitiveArray objectWithPrimitiveArray = new ObjectWithPrimitiveArray();
+        Class objectClass = Class.forName("objects.ObjectWithPrimitiveArray");
+        String indentation = Utils.getIndentation(depth);
+        System.out.format("%sYou are selecting an object with primitive array. " +
+                "Enter the size of the array and fill in array with your primitives\n", indentation);
+        System.out.format("%sEnter the size of array: ", indentation);
+        int size = scanner.nextInt();
+        Number[] array = new Number[size];
+        for (int i = 0; i < size; i++){
+            System.out.format("%sValue for element at index %d: ", indentation, i);
+            Double val = scanner.nextDouble();
+            array[i] = val;
+        }
+        // Set the value for the created object
+        objectClass.getDeclaredField("numbers").set(objectWithPrimitiveArray, array);
+        return objectWithPrimitiveArray;
+    }
+
+    public SupportObject optionsForObjectWithObjectArray(int depth) throws Exception{
+        Scanner scanner = new Scanner(System.in);
+        ObjectWithObjectArray objectWithObjectArray = new ObjectWithObjectArray();
+        Class objectClass = Class.forName("objects.ObjectWithObjectArray");
+        String indentation = Utils.getIndentation(depth);
+        System.out.format("%sYou are selecting an object with object array. " +
+                "Enter the size of the array and fill in array with your objects\n", indentation);
+        System.out.format("%sEnter the size of array: ", indentation);
+        int size = scanner.nextInt();
+        SupportObject[] array = new SupportObject[size];
+        System.out.format("%sSelect an option from 1-5 to create an object OR \"N\" to fill in with null element: \n", indentation);
+        for (int i = 0; i < size; i++){
+            System.out.format("%sObject at index %d: ", indentation, i);
+            String option = scanner.next();
+            if (option.equals("N")) array[i] = null;
+            else {
+                int inputVal = Integer.valueOf(option);
+                if (inputVal > 5 || inputVal < 1) throw new Exception("Invalid options");
+                SupportObject object = selectOptions(inputVal, depth+1);
+                array[i] = object;
+            }
+        }
+        // Set the value for the created object
+        objectClass.getDeclaredField("supportObjects").set(objectWithObjectArray, array);
+        return objectWithObjectArray;
+    }
+
+    public SupportObject optionsForObjectWithCollection(int depth) throws Exception{
+        Scanner scanner = new Scanner(System.in);
+        ObjectWithCollection objectWithCollection = new ObjectWithCollection();
+        Queue<SupportObject> queue = objectWithCollection.getQueue();
+        String indentation = Utils.getIndentation(depth);
+        System.out.format("%sYou are selecting an object with Java collection.\n" +
+                "Choose an option from 1-5 to create object OR \"N\" for null value OR \"E\" when you are done\n", indentation);
+        String input;
+        do {
+            System.out.format("%sObject (1-5 OR \"N\"): ", indentation);
+            input = scanner.next();
+            if (input.equals("E")) break;
+            else if (input.equals("N")) queue.add(null);
+            else {
+                int inputVal = Integer.valueOf(input);
+                if (inputVal > 5 || inputVal < 1) throw new Exception("Invalid options");
+                queue.add(selectOptions(inputVal, depth+1));
+            }
+        } while (true);
+        objectWithCollection.setQueue(queue);
+        return objectWithCollection;
     }
 
 
