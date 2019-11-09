@@ -1,5 +1,7 @@
 package objects;
 
 public class ObjectWithPrimitiveArray implements SupportObject{
-    public Number[] numbers;
+    private static final long serialVersionUID = 3L;
+
+    public double[] numbers;
 }

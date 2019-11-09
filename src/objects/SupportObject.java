@@ -1,3 +1,5 @@
 package objects;
 
-public interface SupportObject { }
+import java.io.Serializable;
+
+public interface SupportObject extends Serializable{ }
