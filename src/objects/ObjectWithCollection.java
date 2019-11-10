@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class ObjectWithCollection implements SupportObject{
-    private static final long serialVersionUID = 5L;
 
     public Queue<SupportObject> queue = new LinkedList<>();
 

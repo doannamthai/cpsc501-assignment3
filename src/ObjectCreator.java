@@ -6,12 +6,21 @@ import java.util.Scanner;
 
 public class ObjectCreator {
 
-    public static void main(String[] args) throws Exception{
-        ObjectCreator creator = new ObjectCreator();
-        creator.getObject(0);
+    public static void main(String[] args) {
+
     }
 
-    public SupportObject getObject(int depth) throws Exception{
+    public SupportObject createObject() {
+        try {
+            return getObject(0);
+        } catch (Exception e){
+            System.err.println("Cannot create object");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private SupportObject getObject(int depth) throws Exception{
         SupportObject supportObject = null;
         Scanner scanner = new Scanner(System.in);
         int input = 0;
@@ -22,8 +31,10 @@ public class ObjectCreator {
         System.out.format(" %s(3) Object with array of primitives\n", indentation);
         System.out.format(" %s(4) Object with array of references\n", indentation);
         System.out.format(" %s(5) Object using collection interface\n", indentation);
+        System.out.format(" %s(6) Terminate\n", indentation);
         System.out.format(" %sYour selection: ", indentation);
         input = scanner.nextInt();
+        if (input == 6) return null;
         supportObject = selectOptions(input, depth);
 
         return supportObject;
@@ -83,20 +94,19 @@ public class ObjectCreator {
     public SupportObject optionsForObjectWithPrimitiveArray(int depth) throws Exception{
         Scanner scanner = new Scanner(System.in);
         ObjectWithPrimitiveArray objectWithPrimitiveArray = new ObjectWithPrimitiveArray();
-        Class objectClass = Class.forName("objects.ObjectWithPrimitiveArray");
         String indentation = Utils.getIndentation(depth);
         System.out.format("%sYou are selecting an object with primitive array. " +
                 "Enter the size of the array and fill in array with your primitives\n", indentation);
         System.out.format("%sEnter the size of array: ", indentation);
         int size = scanner.nextInt();
-        Number[] array = new Number[size];
+        double[] array = new double[size];
         for (int i = 0; i < size; i++){
             System.out.format("%sValue for element at index %d: ", indentation, i);
             Double val = scanner.nextDouble();
             array[i] = val;
         }
         // Set the value for the created object
-        objectClass.getDeclaredField("numbers").set(objectWithPrimitiveArray, array);
+        objectWithPrimitiveArray.setNumbers(array);
         return objectWithPrimitiveArray;
     }
 
@@ -110,17 +120,13 @@ public class ObjectCreator {
         System.out.format("%sEnter the size of array: ", indentation);
         int size = scanner.nextInt();
         SupportObject[] array = new SupportObject[size];
-        System.out.format("%sSelect an option from 1-5 to create an object OR \"N\" to fill in with null element: \n", indentation);
+        System.out.format("%sSelect an option from 1-5 to create an object: \n", indentation);
         for (int i = 0; i < size; i++){
             System.out.format("%sObject at index %d: ", indentation, i);
-            String option = scanner.next();
-            if (option.equals("N")) array[i] = null;
-            else {
-                int inputVal = Integer.valueOf(option);
-                if (inputVal > 5 || inputVal < 1) throw new Exception("Invalid options");
-                SupportObject object = selectOptions(inputVal, depth+1);
-                array[i] = object;
-            }
+            int inputVal = scanner.nextInt();
+            if (inputVal > 5 || inputVal < 1) throw new Exception("Invalid options");
+            SupportObject object = selectOptions(inputVal, depth+1);
+            array[i] = object;
         }
         // Set the value for the created object
         objectClass.getDeclaredField("supportObjects").set(objectWithObjectArray, array);
@@ -133,13 +139,12 @@ public class ObjectCreator {
         Queue<SupportObject> queue = objectWithCollection.getQueue();
         String indentation = Utils.getIndentation(depth);
         System.out.format("%sYou are selecting an object with Java collection.\n" +
-                "Choose an option from 1-5 to create object OR \"N\" for null value OR \"E\" when you are done\n", indentation);
+                "Choose an option from 1-5 to create object OR OR \"E\" when you are done\n", indentation);
         String input;
         do {
             System.out.format("%sObject (1-5 OR \"N\"): ", indentation);
             input = scanner.next();
             if (input.equals("E")) break;
-            else if (input.equals("N")) queue.add(null);
             else {
                 int inputVal = Integer.valueOf(input);
                 if (inputVal > 5 || inputVal < 1) throw new Exception("Invalid options");

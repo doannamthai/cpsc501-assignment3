@@ -1,7 +1,13 @@
 package objects;
 
 public class ObjectWithPrimitiveArray implements SupportObject{
-    private static final long serialVersionUID = 3L;
-
     public double[] numbers;
+
+    public double[] getNumbers() {
+        return numbers;
+    }
+
+    public void setNumbers(double[] numbers) {
+        this.numbers = numbers;
+    }
 }
