@@ -1,6 +1,7 @@
 import objects.*;
 
 import java.lang.reflect.Field;
+import java.util.List;
 import java.util.Queue;
 import java.util.Scanner;
 
@@ -136,22 +137,22 @@ public class ObjectCreator {
     public SupportObject optionsForObjectWithCollection(int depth) throws Exception{
         Scanner scanner = new Scanner(System.in);
         ObjectWithCollection objectWithCollection = new ObjectWithCollection();
-        Queue<SupportObject> queue = objectWithCollection.getQueue();
+        List<SupportObject> list = objectWithCollection.getList();
         String indentation = Utils.getIndentation(depth);
         System.out.format("%sYou are selecting an object with Java collection.\n" +
                 "Choose an option from 1-5 to create object OR OR \"E\" when you are done\n", indentation);
         String input;
         do {
-            System.out.format("%sObject (1-5 OR \"N\"): ", indentation);
+            System.out.format("%sObject (1-5 OR \"E\"): ", indentation);
             input = scanner.next();
             if (input.equals("E")) break;
             else {
                 int inputVal = Integer.valueOf(input);
                 if (inputVal > 5 || inputVal < 1) throw new Exception("Invalid options");
-                queue.add(selectOptions(inputVal, depth+1));
+                list.add(selectOptions(inputVal, depth+1));
             }
         } while (true);
-        objectWithCollection.setQueue(queue);
+        objectWithCollection.setList(list);
         return objectWithCollection;
     }
 

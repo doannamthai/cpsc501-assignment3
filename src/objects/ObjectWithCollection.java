@@ -1,17 +1,17 @@
 package objects;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ObjectWithCollection implements SupportObject{
 
-    public Queue<SupportObject> queue = new LinkedList<>();
+    public List<SupportObject> list = new ArrayList();
 
-    public Queue<SupportObject> getQueue() {
-        return queue;
+    public List<SupportObject> getList() {
+        return list;
     }
 
-    public void setQueue(Queue<SupportObject> queue) {
-        this.queue = queue;
+    public void setList(List<SupportObject> queue) {
+        this.list = queue;
     }
 }

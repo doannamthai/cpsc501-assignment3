@@ -1,6 +1,4 @@
-import objects.ObjectWithPrimitiveArray;
 import objects.ObjectWithReference;
-import objects.SimpleObject;
 import objects.SupportObject;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -8,10 +6,7 @@ import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.IdentityHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Serializer {
     private static final Map<Object, Long> map = new IdentityHashMap<Object, Long>();
@@ -33,7 +28,7 @@ public class Serializer {
         map.remove(o);
     }
 
-    public void serialize(SupportObject supportObject) throws Exception{
+    public Document serialize(SupportObject supportObject) throws Exception{
         Element root = new Element("serialized");
         serializeObject(root, supportObject);
         Document doc = new Document(root);
@@ -42,6 +37,7 @@ public class Serializer {
         // display ml
         xmlOutput.setFormat(Format.getPrettyFormat());
         xmlOutput.output(doc, System.out);
+        return doc;
     }
 
     private Element serializeObject(Element root, Object obj) throws Exception{
@@ -65,6 +61,8 @@ public class Serializer {
     private void handleArray(Element main, Element root, Object obj) throws Exception{
         for (int i = 0; i < Array.getLength(obj); i++){
             Object element = Array.get(obj, i);
+            if (element == null) continue;
+            System.out.println(element);
             if (Utils.isPrimitiveOrWrapper(element.getClass())){
                 Element value = new Element("value");
                 value.setText(element.toString());
@@ -83,6 +81,7 @@ public class Serializer {
         List<Element> res = new ArrayList<>();
         Field[] fields = objectClass.getDeclaredFields();
         for (Field field: fields){
+            field.setAccessible(true);
             Element root = new Element("field");
             Object fieldVal = field.get(obj);
             if (fieldVal != null){
