@@ -19,16 +19,29 @@
       <reference>3</reference>
     </field>
     <field name="elementData" declaringclass="[Ljava.lang.Object;">
-      <reference>3</reference>
+      <reference>4</reference>
     </field>
     <field name="size" declaringclass="int">
-      <value>0</value>
+      <value>1</value>
     </field>
     <field name="MAX_ARRAY_SIZE" declaringclass="int">
       <value>2147483639</value>
     </field>
   </object>
-  <object name="[Ljava.lang.Object;" id="3" length="0" />
+  <object name="[Ljava.lang.Object;" id="4" length="10">
+    <reference>5</reference>
+  </object>
+  <object name="objects.SimpleObject" id="5">
+    <field name="number1" declaringclass="double">
+      <value>2.0</value>
+    </field>
+    <field name="number2" declaringclass="double">
+      <value>3.0</value>
+    </field>
+    <field name="number3" declaringclass="double">
+      <value>4.0</value>
+    </field>
+  </object>
   <object name="[Ljava.lang.Object;" id="3" length="0" />
   <object name="[Ljava.lang.Object;" id="2" length="0" />
 </serialized>

@@ -6,22 +6,19 @@ import java.io.File;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Deserializer {
-    private static final Map<Long, Object> map = new HashMap<>();
+    private static Map<Long, Object> map;
 
-    public static void main(String[] args) throws Exception{
-        Deserializer deserializer = new Deserializer();
-        //deserializer.deserialize();
+    private  void initialize(){
+        map = new HashMap<>();
     }
-
     public void deserialize(Document doc) throws Exception{
+        initialize();
         //File inputFile = new File("input.txt");
         //SAXBuilder saxBuilder = new SAXBuilder();
-        //Document doc = saxBuilder.build(inputFile);
+        //Document doc1 = saxBuilder.build(inputFile);
         Element root = doc.getRootElement();
         List<Element> children = root.getChildren();
         // Initialize hash map
@@ -29,9 +26,7 @@ public class Deserializer {
         // Set fields
         setFields(children);
         Inspector inspector = new Inspector();
-
         inspector.inspect(map.get(0L), true);
-
     }
 
 
@@ -40,8 +35,12 @@ public class Deserializer {
             Class objectClass = Class.forName(element.getAttributeValue("name"));
             long key = Long.valueOf(element.getAttributeValue("id"));
             Object object;
-            if (objectClass.isArray()){
-                // Handle the case where it is an array-object
+            if (Collection.class.isAssignableFrom(objectClass)){
+                // Collection type
+                object = new ArrayList<>();
+            }
+            else if (objectClass.isArray()){
+                // Handle the case where it is an array
                 object = Array.newInstance(objectClass.getComponentType(),
                         Integer.valueOf(element.getAttributeValue("length")));
             } else {
@@ -56,12 +55,29 @@ public class Deserializer {
         for (Element element : elements){
             long key = Long.valueOf(element.getAttributeValue("id"));
             Object storedObject = map.get(key);
-            if (!storedObject.getClass().isArray()){
+            if (Collection.class.isAssignableFrom(storedObject.getClass())){
+                // Collection type
+                setCollectionValueForObject(storedObject, element.getChildren());
+            }
+            else if (!storedObject.getClass().isArray()){
                 // Handle the case where it is non array-object
                 setFieldValueForObject(storedObject, element.getChildren());
             } else {
                 // Array object
                 setArrayValueForObject(storedObject, element.getChildren());
+            }
+        }
+    }
+
+    private void setCollectionValueForObject(Object obj, List<Element> values) throws Exception{
+        // Obj is a collection
+        Collection colObj = (Collection) obj;
+        for (int i = 0; i < values.size(); i++){
+            Element field = values.get(i);
+            if (field.getAttributeValue("name").equals("elementData")){
+                for (Element refElement : field.getChildren()){
+                    Collections.addAll(colObj, map.get(Long.valueOf(refElement.getText())));
+                }
             }
         }
     }
@@ -90,11 +106,12 @@ public class Deserializer {
 
     private void setArrayValueForObject(Object obj, List<Element> values){
         if (obj.getClass().getComponentType().isPrimitive()){
-            for (int i = 0; i < Array.getLength(obj); i++)
+            for (int i = 0; i < values.size(); i++)
                 Array.set(obj, i, Double.valueOf(values.get(i).getText()));
         } else {
-            for (int i = 0; i < Array.getLength(obj); i++)
+            for (int i = 0; i < values.size(); i++){
                 Array.set(obj, i, map.get(Long.valueOf(values.get(i).getText())));
+            }
         }
     }
 }

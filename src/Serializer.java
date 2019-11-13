@@ -9,8 +9,8 @@ import java.lang.reflect.Field;
 import java.util.*;
 
 public class Serializer {
-    private static final Map<Object, Long> map = new IdentityHashMap<Object, Long>();
-    private static long nextId = 0;
+    private static Map<Object, Long> map;
+    private static long nextId;
 
     public static void main(String[] args) throws Exception{
         SupportObject supportObject = new ObjectWithReference();
@@ -28,7 +28,13 @@ public class Serializer {
         map.remove(o);
     }
 
+    private void initialize(){
+        map = new IdentityHashMap<>();
+        nextId = 0;
+    }
+
     public Document serialize(SupportObject supportObject) throws Exception{
+        initialize();
         Element root = new Element("serialized");
         serializeObject(root, supportObject);
         Document doc = new Document(root);
@@ -62,7 +68,6 @@ public class Serializer {
         for (int i = 0; i < Array.getLength(obj); i++){
             Object element = Array.get(obj, i);
             if (element == null) continue;
-            System.out.println(element);
             if (Utils.isPrimitiveOrWrapper(element.getClass())){
                 Element value = new Element("value");
                 value.setText(element.toString());

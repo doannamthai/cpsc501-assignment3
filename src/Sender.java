@@ -13,35 +13,48 @@ import java.util.Scanner;
 
 public class Sender {
     // host and port of receiver
-
+    private String host = null;
+    private int port = 0;
     public static void main(String[] args) throws Exception{
-        ObjectCreator creator = new ObjectCreator();
-        Serializer serializer = new Serializer();
-        SupportObject obj = creator.createObject();
-        if (obj == null) throw new Exception("Couldn't create object, process is terminated");
-        System.out.println("SERIALIZING...");
-        System.out.println("=========================== RESULT ===========================");
-        Document doc = serializer.serialize(obj);
-        // Sender
-        System.out.println("SENDING TO THE RECEIVER...");
         Sender sender = new Sender();
-        sender.connect(doc);
+        while(true){
+            ObjectCreator creator = new ObjectCreator();
+            Serializer serializer = new Serializer();
+            SupportObject obj = creator.createObject();
+            if (obj == null) {
+                System.out.println("TERMINATING...");
+                return;
+            }
+            System.out.println("SERIALIZING...");
+            System.out.println("=========================== RESULT ===========================");
+            Document doc = serializer.serialize(obj);
+            // Sender
+            System.out.println("SENDING TO THE RECEIVER...");
+            sender.connect(doc);
+            System.out.println("SENT");
+            System.out.println("======================================================");
+        }
+
     }
 
     private void connect(Document doc) throws Exception{
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Server IP: ");
-        String ip = scanner.next().trim();
-        System.out.print("Server PORT: ");
-        int port = scanner.nextInt();
-        Socket socket = new Socket(ip, port);
+        if (host == null || port == 0){
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Server IP: ");
+            host = scanner.next().trim();
+            System.out.print("Server PORT: ");
+            port = scanner.nextInt();
+        }
+        Socket socket = new Socket(host, port);
         sendBytes(socket, convertDocToByte(doc));
+        socket.close();
     }
 
     private void sendBytes(Socket socket, byte[] bytes) throws Exception{
         DataOutputStream out = new DataOutputStream(socket.getOutputStream());
         out.writeInt(bytes.length);
         out.write(bytes);
+        out.close();
     }
 
     private byte[] convertDocToByte(Document doc) throws Exception{

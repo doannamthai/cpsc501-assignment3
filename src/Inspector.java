@@ -22,15 +22,25 @@ public class Inspector {
             return;
         // Get the class name
         String className = findClassName(c, obj, recursive, depth);
+        // If this an array inspect elements
+        if (c.isArray()){
+            Object[] array = (Object[]) obj;
+            System.out.println(MessageFormat.format("{0}Type: array | Component type: {1} | Length: {2} | Content: {3}", getIndentation(depth),
+                    obj.getClass().getComponentType(), Array.getLength(obj), Arrays.toString(array)));
+            for (int i = 0; i < array.length; i++){
+                if (array[i] != null)
+                inspectClass(array[i].getClass(), array[i], recursive, depth+1);
+            }
+        }
 
         // Find super-class information if applicable
-        findSuperClassInfo(className, c, obj, recursive, depth);
+        //findSuperClassInfo(className, c, obj, recursive, depth);
         // Find interface information if applicable
-        findInterfaceInfo(className, c, obj, recursive, depth);
+        //findInterfaceInfo(className, c, obj, recursive, depth);
         // Find constructors information
-        findConstructorInfo(className, c, obj, recursive, depth);
+        //findConstructorInfo(className, c, obj, recursive, depth);
         // Find method information
-        findMethodInfo(className, c, obj, recursive, depth);
+        //findMethodInfo(className, c, obj, recursive, depth);
         // Find field information
         findFieldInfo(className, c, obj, recursive, depth);
     }
@@ -42,57 +52,6 @@ public class Inspector {
         return className;
     }
 
-    public void findSuperClassInfo(String className, Class c, Object obj, boolean recursive, int depth) throws IllegalAccessException{
-        if (hasSuperClass(c)){
-            System.out.format("%s[%s] Super-class information\n", getIndentation(depth), className);
-            inspectClass(c.getSuperclass(), obj, recursive, depth+1);
-        } else {
-            System.out.format("%s[%s] No super-class\n", getIndentation(depth), className);
-        }
-    }
-
-    public void findInterfaceInfo(String className, Class c, Object obj, boolean recursive, int depth) throws IllegalAccessException{
-        if (hasInterface(c)){
-            System.out.format("%s[%s] Interface(s) information", getIndentation(depth), className);
-            for (int i = 0; i < c.getInterfaces().length; i++) {
-                System.out.println();
-                inspectClass(c.getInterfaces()[i], obj, recursive, depth + 1);
-            }
-        } else {
-            System.out.format("%s[%s] No interface(s)\n",getIndentation(depth), className);
-        }
-    }
-
-    public void findConstructorInfo(String className, Class c, Object obj, boolean recursive, int depth){
-        Constructor[] constructors =  c.getDeclaredConstructors();
-        System.out.format("%s[%s] Constructor(s) information\n", getIndentation(depth), className);
-        depth += 1;
-        for (Constructor constructor : constructors){
-            constructor.setAccessible(true);
-            System.out.format("%sConstructor name: %s\n", getIndentation(depth), constructor.getName());
-            System.out.format("%sParameter types (%d): %s\n", getIndentation(depth), constructor.getParameterTypes().length,
-                    arrayToString(constructor.getParameterTypes()));
-            System.out.format("%sModifiers: %s", getIndentation(depth), Modifier.toString(constructor.getModifiers()));
-            System.out.println("\n");
-        }
-    }
-
-    public void findMethodInfo(String className, Class c, Object obj, boolean recursive, int depth){
-        Method[] methods = c.getDeclaredMethods();
-        System.out.format("%s[%s] Method(s) information\n", getIndentation(depth), className);
-        depth += 1;
-        for (Method method : methods){
-            method.setAccessible(true);
-            System.out.format("%sMethod name: %s\n", getIndentation(depth), method.getName());
-            System.out.format("%sExceptions thrown (%d): %s\n", getIndentation(depth), method.getExceptionTypes().length,
-                    arrayToString(method.getExceptionTypes()));
-            System.out.format("%sParameter types (%d): %s\n", getIndentation(depth), method.getParameterTypes().length,
-                    arrayToString(method.getParameterTypes()));
-            System.out.format("%sReturn type: %s\n", getIndentation(depth), method.getReturnType().getTypeName());
-            System.out.format("%sModifiers: %s", getIndentation(depth), Modifier.toString(method.getModifiers()));
-            System.out.println("\n");
-        }
-    }
 
     public void findFieldInfo(String className, Class c, Object obj, boolean recursive, int depth) throws IllegalAccessException{
         Field[] fields =  c.getDeclaredFields();
@@ -113,11 +72,13 @@ public class Inspector {
     }
 
     public void recursiveInspect(Object obj, int depth) throws IllegalAccessException{
-        if (obj == null) return;
         // If this object is null or class is primitive then exits
-        if (obj.getClass() != null && obj.getClass().isPrimitive())
+        if (obj == null || obj.getClass() == null || obj.getClass().equals(Object.class)
+                || obj.getClass().isPrimitive() || Utils.isPrimitiveOrWrapper(obj.getClass()))
             return;
+
         // If this is an array of objects then iterate over the array and inspect element
+        System.out.format("%s========================= Element(s) inspection ========================= \n", getIndentation(depth));
         if (obj.getClass().isArray()){
             for (int i = 0; i < Array.getLength(obj); i++) {
                 Object element = Array.get(obj, i);

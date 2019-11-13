@@ -3,10 +3,15 @@ import org.jdom2.input.SAXBuilder;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 public class Receiver  {
@@ -14,17 +19,45 @@ public class Receiver  {
 
     public static void main(String[] args){
         try {
-            ServerSocket listener = new ServerSocket(1107);
+            ServerSocket listener = new ServerSocket(PORT);
             System.out.println("Connection authentication: ");
             System.out.println(" - IP: " + InetAddress.getLocalHost().getHostAddress());
             System.out.println(" - PORT: " + PORT);
-            Receiver receiver = new Receiver();
+            System.out.println("Enter E to terminate the program");
             Deserializer deserializer = new Deserializer();
-
-            while(true){
+            ExecutorService pool = Executors.newFixedThreadPool(20);
+            while (true) {
                 System.out.println("Waiting for the client request...");
-                // Creating socket and waiting for client connection
-                Socket socket = listener.accept();
+                pool.execute(new Runner(listener.accept(), deserializer));
+            }
+            //listener.close();
+           // System.out.println("Shutting down socket server");
+            //close the ServerSocket object
+        } catch (java.lang.Exception ex) {
+            ex.printStackTrace(System.out);
+        }
+    }
+
+
+    private static Document bytesToDoc(byte[] byteArray) throws Exception{
+        ByteArrayInputStream byteStream = new ByteArrayInputStream(byteArray);
+        SAXBuilder builder = new SAXBuilder();
+        return builder.build(byteStream);
+    }
+
+    private static class Runner implements Runnable {
+        private Socket socket;
+        private Deserializer deserializer;
+
+        Runner(Socket socket, Deserializer deserializer) {
+            this.socket = socket;
+            this.deserializer = deserializer;
+        }
+
+        @Override
+        public void run() {
+            System.out.println("Connected: " + socket);
+            try {
                 // Read from socket to InputStream object
                 DataInputStream in = new DataInputStream(socket.getInputStream());
                 // Convert InputStream object to byte[]
@@ -33,27 +66,20 @@ public class Receiver  {
                     byte[] docBytes = new byte[length];
                     in.readFully(docBytes, 0, docBytes.length);
                     // Convert and deserialize
-                    System.out.println("================================= RESULT =================================");
-                    deserializer.deserialize(receiver.bytesToDoc(docBytes));
-                    break;
+                    System.out.println("================================= BEGIN OF RESULT =================================");
+                    deserializer.deserialize(bytesToDoc(docBytes));
+                    System.out.println("================================= END OF RESULT =================================");
                 }
                 //close resources
                 in.close();
-                socket.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Error:" + socket);
+            } finally {
+                try { socket.close(); } catch (IOException e) {}
+                System.out.println("Closed: " + socket);
             }
-            System.out.println("Shutting down socket server");
-            //close the ServerSocket object
-            listener.close();
-        } catch (java.lang.Exception ex) {
-            ex.printStackTrace(System.out);
         }
-    }
-
-
-    private Document bytesToDoc(byte[] byteArray) throws Exception{
-        ByteArrayInputStream byteStream = new ByteArrayInputStream(byteArray);
-        SAXBuilder builder = new SAXBuilder();
-        return builder.build(byteStream);
     }
 
 }
