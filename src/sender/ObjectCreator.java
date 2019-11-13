@@ -1,9 +1,11 @@
+package sender;
+
 import objects.*;
+import utils.Utils;
 
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Scanner;
-
 public class ObjectCreator {
 
     public static void main(String[] args) {

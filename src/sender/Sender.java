@@ -1,3 +1,5 @@
+package sender;
+
 import objects.SupportObject;
 import org.jdom2.Document;
 import org.jdom2.transform.JDOMSource;
@@ -28,7 +30,7 @@ public class Sender {
             System.out.println("SERIALIZING...");
             System.out.println("=========================== RESULT ===========================");
             Document doc = serializer.serialize(obj);
-            // Sender
+            // sender.Sender
             System.out.println("SENDING TO THE RECEIVER...");
             sender.connect(doc);
             System.out.println("SENT");

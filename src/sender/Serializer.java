@@ -1,9 +1,13 @@
+package sender;
+
 import objects.ObjectWithReference;
 import objects.SupportObject;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
+import utils.Utils;
+
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.*;
