@@ -9,15 +9,12 @@ import org.jdom2.output.XMLOutputter;
 import org.junit.Test;
 import receiver.Deserializer;
 import sender.Serializer;
-
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 
 public class SystemTest {
-    //@Test
+    @Test
     public void testSimpleObjectSer() throws Exception{
         Serializer serializer = new Serializer();
         SimpleObject simpleObject = createSimpleObject(1,2,3);
@@ -28,7 +25,7 @@ public class SystemTest {
         assertEquals(docToString(expected), docToString(serializer.serialize(simpleObject)));
     }
 
-    //@Test
+    @Test
     public void testObjectWithRefSer() throws Exception{
         Serializer serializer = new Serializer();
         ObjectWithReference objectWithReference = new ObjectWithReference();
@@ -55,7 +52,7 @@ public class SystemTest {
         assertEquals(docToString(new Document(root)), docToString(serializer.serialize(objectWithReference)));
     }
 
-    //@Test
+    @Test
     public void testObjectWithPrimitiveArraySer() throws Exception{
         Serializer serializer = new Serializer();
         ObjectWithPrimitiveArray main = new ObjectWithPrimitiveArray();
@@ -86,7 +83,7 @@ public class SystemTest {
         assertEquals(docToString(new Document(root)), docToString(serializer.serialize(main)));
     }
 
-    //@Test
+    @Test
     public void testSimpleObjectDes() throws Exception {
         SimpleObject simpleObject = createSimpleObject(1,2,3);
         Serializer serializer = new Serializer();
@@ -107,7 +104,7 @@ public class SystemTest {
         assertTrue(compareSimpleObject(expected, actual));
     }
 
-    //@Test
+    @Test
     public void testObjectWithPrimitiveArrayDes() throws Exception{
         Serializer serializer = new Serializer();
         Deserializer deserializer = new Deserializer();
@@ -117,7 +114,7 @@ public class SystemTest {
         assertTrue(Arrays.equals(main.numbers, objectWithPrimitiveArray.numbers));
     }
 
-    //@Test
+    @Test
     public void testObjectWithObjectArrayDes() throws Exception{
         Serializer serializer = new Serializer();
         Deserializer deserializer = new Deserializer();
