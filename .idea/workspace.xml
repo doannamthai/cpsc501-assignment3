@@ -3,16 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="a6f81991-48f7-4c0c-8e1a-89a75a852c9a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Assignment 3/Deserializer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Assignment 3/Inspector.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Assignment 3/ObjectCreator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Assignment 3/Receiver$Runner.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Assignment 3/Receiver.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Assignment 3/Sender.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Assignment 3/Serializer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Assignment 3/Utils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assignment 3/receiver/Deserializer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assignment 3/receiver/Deserializer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assignment 3/test/SystemTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assignment 3/test/SystemTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/receiver/Deserializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/receiver/Deserializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sender/Serializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sender/Serializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sender/ObjectCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sender/ObjectCreator.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,10 +20,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/sender/ObjectCreator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="321">
+              <caret line="123" column="12" lean-forward="true" selection-start-line="123" selection-start-column="12" selection-end-line="123" selection-end-column="64" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sender/Sender.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
+            <state relative-caret-position="-603">
               <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -41,10 +47,9 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/SystemTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="371">
-              <caret line="141" column="39" selection-start-line="141" selection-start-column="39" selection-end-line="141" selection-end-column="39" />
+            <state relative-caret-position="231">
+              <caret line="11" selection-start-line="11" selection-end-line="11" />
               <folding>
-                <element signature="imports" expanded="true" />
                 <element signature="method#testSimpleObjectSer#0;class#SystemTest#0" />
                 <element signature="method#testSimpleObjectSer#1;class#SystemTest#0" />
                 <element signature="method#testObjectWithPrimitiveArraySer#0;class#SystemTest#0" />
@@ -52,19 +57,9 @@
                 <element signature="method#testSimpleObjectDes#1;class#SystemTest#0" />
                 <element signature="method#testObjectWithPrimitiveArrayDes#0;class#SystemTest#0" />
                 <element signature="method#testObjectWithObjectArrayDes#0;class#SystemTest#0" />
+                <element signature="method#testObjectWithCollection#0;class#SystemTest#0" />
+                <element signature="method#createSimpleObject#0;class#SystemTest#0" />
                 <element signature="method#createSimpleObjectElement#0;class#SystemTest#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/TestRunner.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="12" column="38" selection-start-line="12" selection-start-column="38" selection-end-line="12" selection-end-column="38" />
-              <folding>
-                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -73,17 +68,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/receiver/Receiver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="4" selection-start-line="4" selection-end-line="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/receiver/Deserializer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="237">
-              <caret line="82" selection-start-line="82" selection-end-line="82" />
+            <state relative-caret-position="-378">
+              <caret line="33" column="43" lean-forward="true" selection-start-line="31" selection-start-column="10" selection-end-line="33" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -92,19 +78,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/objects/SimpleObject.java">
+        <entry file="file://$PROJECT_DIR$/src/receiver/Deserializer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="4" column="50" selection-start-line="4" selection-start-column="50" selection-end-line="4" selection-end-column="50" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/receiver/Inspector.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+            <state relative-caret-position="-645">
+              <caret line="18" selection-start-line="18" selection-end-line="18" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -115,8 +92,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sender/Serializer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="735">
-              <caret line="47" column="42" selection-start-line="44" selection-start-column="8" selection-end-line="47" selection-end-column="42" />
+            <state relative-caret-position="861">
+              <caret line="43" column="22" selection-start-line="43" selection-start-column="22" selection-end-line="43" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -129,6 +106,18 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="42">
               <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/receiver/Inspector.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="189">
+              <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -172,13 +161,13 @@
         <option value="$PROJECT_DIR$/src/Serializer.java" />
         <option value="$PROJECT_DIR$/src/Deserializer.java" />
         <option value="$PROJECT_DIR$/src/Inspector.java" />
-        <option value="$PROJECT_DIR$/src/sender/ObjectCreator.java" />
         <option value="$PROJECT_DIR$/src/receiver/Receiver.java" />
         <option value="$PROJECT_DIR$/src/test/Test.java" />
         <option value="$PROJECT_DIR$/src/sender/Serializer.java" />
         <option value="$PROJECT_DIR$/src/test/TestRunner.java" />
         <option value="$PROJECT_DIR$/src/test/SystemTest.java" />
         <option value="$PROJECT_DIR$/src/receiver/Deserializer.java" />
+        <option value="$PROJECT_DIR$/src/sender/ObjectCreator.java" />
       </list>
     </option>
   </component>
@@ -212,12 +201,6 @@
               <item name="Assignment 3" type="b2602c69:ProjectViewProjectNode" />
               <item name="Assignment 3" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="objects" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Assignment 3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Assignment 3" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="receiver" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -225,12 +208,6 @@
               <item name="Assignment 3" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="sender" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Assignment 3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Assignment 3" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Assignment 3" type="b2602c69:ProjectViewProjectNode" />
@@ -273,7 +250,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.TestRunner">
+  <component name="RunManager" selected="Application.Receiver">
     <configuration name="Deserializer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="receiver.Deserializer" />
       <module name="Assignment 3" />
@@ -317,9 +294,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.TestRunner" />
-        <item itemvalue="Application.Sender" />
         <item itemvalue="Application.Receiver" />
+        <item itemvalue="Application.Sender" />
+        <item itemvalue="Application.TestRunner" />
         <item itemvalue="Application.Deserializer" />
         <item itemvalue="Application.Serializer" />
       </list>
@@ -338,12 +315,12 @@
       <workItem from="1573276901087" duration="22633000" />
       <workItem from="1573407203447" duration="18764000" />
       <workItem from="1573593125388" duration="18582000" />
-      <workItem from="1573666621167" duration="7789000" />
+      <workItem from="1573666621167" duration="10844000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67768000" />
+    <option name="totallyTimeSpent" value="70823000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -354,7 +331,7 @@
       <window_info id="Capture Tool" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Image Layers" order="4" />
-      <window_info content_ui="combo" id="Project" order="5" visible="true" weight="0.25799572" />
+      <window_info active="true" content_ui="combo" id="Project" order="5" visible="true" weight="0.25799572" />
       <window_info id="Structure" order="6" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="1" />
@@ -363,7 +340,7 @@
       <window_info anchor="bottom" id="Event Log" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="5" />
       <window_info anchor="bottom" id="Find" order="6" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" id="Run" order="7" visible="true" weight="0.4409534" />
+      <window_info anchor="bottom" id="Run" order="7" visible="true" weight="0.4409534" />
       <window_info anchor="bottom" id="Debug" order="8" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.32936078" />
@@ -419,16 +396,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/objects/ObjectWithCollection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/input.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="630">
@@ -449,29 +416,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sender/ObjectCreator.java">
+    <entry file="file://$PROJECT_DIR$/src/utils/Utils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sender/Sender.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="42">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/TestRunner.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
+        <state relative-caret-position="252">
           <caret line="12" column="38" selection-start-line="12" selection-start-column="38" selection-end-line="12" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -479,10 +433,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/receiver/Receiver.java">
+    <entry file="file://$PROJECT_DIR$/src/test/SystemTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        <state relative-caret-position="231">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+          <folding>
+            <element signature="method#testSimpleObjectSer#0;class#SystemTest#0" />
+            <element signature="method#testSimpleObjectSer#1;class#SystemTest#0" />
+            <element signature="method#testObjectWithPrimitiveArraySer#0;class#SystemTest#0" />
+            <element signature="method#testSimpleObjectDes#0;class#SystemTest#0" />
+            <element signature="method#testSimpleObjectDes#1;class#SystemTest#0" />
+            <element signature="method#testObjectWithPrimitiveArrayDes#0;class#SystemTest#0" />
+            <element signature="method#testObjectWithObjectArrayDes#0;class#SystemTest#0" />
+            <element signature="method#testObjectWithCollection#0;class#SystemTest#0" />
+            <element signature="method#createSimpleObject#0;class#SystemTest#0" />
+            <element signature="method#createSimpleObjectElement#0;class#SystemTest#0" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -493,10 +459,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/receiver/Inspector.java">
+    <entry file="file://$PROJECT_DIR$/src/objects/ObjectWithCollection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        <state relative-caret-position="105">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sender/Sender.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-603">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -505,43 +481,48 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sender/Serializer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="735">
-          <caret line="47" column="42" selection-start-line="44" selection-start-column="8" selection-end-line="47" selection-end-column="42" />
+        <state relative-caret-position="861">
+          <caret line="43" column="22" selection-start-line="43" selection-start-column="22" selection-end-line="43" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/Utils.java">
+    <entry file="file://$PROJECT_DIR$/src/receiver/Inspector.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        <state relative-caret-position="189">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/SystemTest.java">
+    <entry file="file://$PROJECT_DIR$/src/receiver/Receiver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="371">
-          <caret line="141" column="39" selection-start-line="141" selection-start-column="39" selection-end-line="141" selection-end-column="39" />
+        <state relative-caret-position="-378">
+          <caret line="33" column="43" lean-forward="true" selection-start-line="31" selection-start-column="10" selection-end-line="33" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#testSimpleObjectSer#0;class#SystemTest#0" />
-            <element signature="method#testSimpleObjectSer#1;class#SystemTest#0" />
-            <element signature="method#testObjectWithPrimitiveArraySer#0;class#SystemTest#0" />
-            <element signature="method#testSimpleObjectDes#0;class#SystemTest#0" />
-            <element signature="method#testSimpleObjectDes#1;class#SystemTest#0" />
-            <element signature="method#testObjectWithPrimitiveArrayDes#0;class#SystemTest#0" />
-            <element signature="method#testObjectWithObjectArrayDes#0;class#SystemTest#0" />
-            <element signature="method#createSimpleObjectElement#0;class#SystemTest#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/receiver/Deserializer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="82" selection-start-line="82" selection-end-line="82" />
+        <state relative-caret-position="-645">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sender/ObjectCreator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="321">
+          <caret line="123" column="12" lean-forward="true" selection-start-line="123" selection-start-column="12" selection-end-line="123" selection-end-column="64" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

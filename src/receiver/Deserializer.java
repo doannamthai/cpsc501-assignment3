@@ -16,6 +16,7 @@ public class Deserializer {
     private  void initialize(){
         map = new HashMap<>();
     }
+
     public Object deserialize(Document doc) throws Exception{
         initialize();
         root = doc.getRootElement();

@@ -8,9 +8,6 @@ import java.util.List;
 import java.util.Scanner;
 public class ObjectCreator {
 
-    public static void main(String[] args) {
-
-    }
 
     public SupportObject createObject() {
         try {
@@ -85,8 +82,7 @@ public class ObjectCreator {
             System.out.format("%sValue for %s: ", indentation, field.getName());
             String input = scanner.next();
             if (!input.equals("N")){
-                int inputVal = Integer.parseInt(input);
-                if (inputVal > 5 || inputVal < 1) throw new Exception("Invalid options");
+                int inputVal = validateIntegerInput(input);
                 field.set(objectWithReference, selectOptions(inputVal, depth+1));
             }
         }
@@ -125,8 +121,7 @@ public class ObjectCreator {
         System.out.format("%sSelect an option from 1-5 to create an object: \n", indentation);
         for (int i = 0; i < size; i++){
             System.out.format("%sObject at index %d: ", indentation, i);
-            int inputVal = scanner.nextInt();
-            if (inputVal > 5 || inputVal < 1) throw new Exception("Invalid options");
+            int inputVal = validateIntegerInput(scanner.next());
             SupportObject object = selectOptions(inputVal, depth+1);
             array[i] = object;
         }
@@ -148,8 +143,7 @@ public class ObjectCreator {
             input = scanner.next();
             if (input.equals("E")) break;
             else {
-                int inputVal = Integer.valueOf(input);
-                if (inputVal > 5 || inputVal < 1) throw new Exception("Invalid options");
+                int inputVal = validateIntegerInput(input);
                 list.add(selectOptions(inputVal, depth+1));
             }
         } while (true);
@@ -157,5 +151,10 @@ public class ObjectCreator {
         return objectWithCollection;
     }
 
+    private int validateIntegerInput(String input) throws Exception{
+        int inputVal = Integer.valueOf(input);
+        if (inputVal > 5 || inputVal < 1) throw new Exception("Invalid options");
+        return inputVal;
+    }
 
 }
