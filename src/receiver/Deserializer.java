@@ -11,16 +11,14 @@ import java.util.*;
 
 public class Deserializer {
     private static Map<Long, Object> map;
+    private Element root;
 
     private  void initialize(){
         map = new HashMap<>();
     }
-    public void deserialize(Document doc) throws Exception{
+    public Object deserialize(Document doc) throws Exception{
         initialize();
-        //File inputFile = new File("input.txt");
-        //SAXBuilder saxBuilder = new SAXBuilder();
-        //Document doc1 = saxBuilder.build(inputFile);
-        Element root = doc.getRootElement();
+        root = doc.getRootElement();
         List<Element> children = root.getChildren();
         // Initialize hash map
         loadObjectsIntoHashMap(children);
@@ -28,6 +26,7 @@ public class Deserializer {
         setFields(children);
         Inspector inspector = new Inspector();
         inspector.inspect(map.get(0L), true);
+        return map.get(0L);
     }
 
 
@@ -76,7 +75,12 @@ public class Deserializer {
         for (int i = 0; i < values.size(); i++){
             Element field = values.get(i);
             if (field.getAttributeValue("name").equals("elementData")){
-                for (Element refElement : field.getChildren()){
+                // This is Object array, we need to go further to get the actual elements
+                Element objectArrayRef = field.getChild("reference");
+                // Find actual element references
+                Element objectArrayElement = findObjectById(objectArrayRef.getText());
+                if (objectArrayElement == null) throw new Exception("Error from serialization, cannot find element by id");
+                for (Element refElement : objectArrayElement.getChildren()){
                     Collections.addAll(colObj, map.get(Long.valueOf(refElement.getText())));
                 }
             }
@@ -114,5 +118,14 @@ public class Deserializer {
                 Array.set(obj, i, map.get(Long.valueOf(values.get(i).getText())));
             }
         }
+    }
+
+    private Element findObjectById(String id){
+        for (Element obj : root.getChildren()){
+            if (obj.getAttributeValue("id").equals(id)){
+                return obj;
+            }
+        }
+        return null;
     }
 }

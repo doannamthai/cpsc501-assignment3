@@ -43,7 +43,6 @@ public class Serializer {
         serializeObject(root, supportObject);
         Document doc = new Document(root);
         XMLOutputter xmlOutput = new XMLOutputter();
-
         // display ml
         xmlOutput.setFormat(Format.getPrettyFormat());
         xmlOutput.output(doc, System.out);
